@@ -32,7 +32,7 @@ npm start
 This will start a demo Express API on `http://localhost:3000` with the following endpoints:
 
 - `POST /login` — body `{ username, password }` (demo credentials: `demo` / `1234`)
-- `POST /register` — body `{ username, password }` (create new account with $100 welcome bonus)
+- `POST /register` — body `{ username, password }` (create new account with ₦10,000 welcome bonus)
 - `GET /balance` — returns `{ balance }` (requires `Authorization: Bearer <token>`)
 - `GET /transactions` — returns `{ transactions: [...] }` (requires auth)
 - `POST /transfer` — body `{ to, amount }` (requires auth)
@@ -41,6 +41,6 @@ When the server is running, the frontend (`index.html`) will call the API automa
 
 Notes & next steps
 
-- This is a frontend-only demo that uses `localStorage` to persist a simple account state.
+- This is a frontend and backend demo that uses `localStorage` to persist a simple account state.
 - Demo credentials: username `demo` and password `1234`.
-- To turn this into a real app: add a backend API, secure authentication, and server-side storage.
+- To turn this into a real app: secure authentication, and server-side storage.
