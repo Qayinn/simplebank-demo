@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SimpleBank — Sign In</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <h1 class="brand">SimpleBank</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Login View -->
+    <section id="loginView" class="card">
+      <h2>Welcome back</h2>
+      <p class="muted">Sign in with username, email, or account number. Demo: <strong>demo</strong> / <strong>1234</strong></p>
+
+      <form id="loginForm" class="form" autocomplete="off">
+        <label for="credential">Username, Email or Account Number</label>
+        <input id="credential" name="credential" placeholder="Enter username, email, or account number" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+
+        <div class="form-row">
+          <button type="submit" class="btn">Sign in</button>
+        </div>
+        <p id="loginError" class="error" role="alert" hidden></p>
+      </form>
+
+      <p class="muted" style="margin-top: 16px; text-align: center;">
+        Don't have an account? <a href="#" id="toggleSignUp" class="link">Sign up</a>
+      </p>
+    </section>
+
+    <!-- Sign Up View -->
+    <section id="signUpView" class="card hidden">
+      <h2>Create account</h2>
+      <p class="muted">Sign up to get started</p>
+
+      <form id="signUpForm" class="form" autocomplete="off">
+        <label for="signUpUsername">Username</label>
+        <input id="signUpUsername" name="username" required />
+
+        <label for="signUpEmail">Email</label>
+        <input id="signUpEmail" name="email" type="email" required />
+
+        <label for="signUpPassword">Password</label>
+        <input id="signUpPassword" name="password" type="password" required />
+
+        <label for="confirmPassword">Confirm password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" required />
+
+        <div class="form-row">
+          <button type="submit" class="btn">Create account</button>
+        </div>
+        <p id="signUpError" class="error" role="alert" hidden></p>
+      </form>
+
+      <p class="muted" style="margin-top: 16px; text-align: center;">
+        Already have an account? <a href="#" id="toggleLogin" class="link">Sign in</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container muted">SimpleBank — demo UI • No real money</div>
+  </footer>
+
+  <script src="app-login.js" defer></script>
+</body>
+</html>

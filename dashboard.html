@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SimpleBank — Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <h1 class="brand">SimpleBank</h1>
+      <nav class="top-actions" aria-hidden="true">
+        <button id="signOutBtn" class="btn btn-ghost">Sign out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Profile Section -->
+    <div class="card profile-card">
+      <div class="profile-header">
+        <div class="avatar-wrapper">
+          <img id="avatarImg" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%232563eb' width='100' height='100'/%3E%3Ctext x='50' y='50' font-size='40' fill='white' text-anchor='middle' dy='.3em'%3E?%3C/text%3E%3C/svg%3E" alt="Profile" />
+          <label for="avatarUpload" class="avatar-upload-label">
+            <input id="avatarUpload" type="file" accept="image/*" hidden />
+            <span class="upload-icon">📷</span>
+          </label>
+        </div>
+        <div class="profile-info">
+          <h3 id="profileUsername">Loading...</h3>
+          <p class="muted" id="profileSince">Member since</p>
+          <p class="muted" id="profileEmail">Email</p>
+          <p class="muted" id="profileAccount">Account: <strong id="accountNumber"></strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card balance-card">
+        <h3>Current Balance</h3>
+        <div class="balance-display">
+          <p id="balance" class="balance">$0.00</p>
+          <button id="toggleBalanceBtn" class="btn-icon" title="Show/hide balance">👁️</button>
+        </div>
+      </div>
+
+      <div class="card actions-card">
+        <h3>Quick Transfer</h3>
+        <form id="transferForm" class="form">
+          <label for="to">Recipient</label>
+          <input id="to" name="to" placeholder="Recipient name or account" required />
+
+          <label for="amount">Amount</label>
+          <input id="amount" name="amount" type="number" step="0.01" min="0.01" required />
+
+          <div class="form-row">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button id="refreshBtn" type="button" class="btn btn-ghost">Refresh</button>
+          </div>
+        </form>
+        <p id="transferMsg" class="muted" hidden></p>
+      </div>
+    </div>
+
+    <div class="card tx-card">
+      <h3>Recent Transactions</h3>
+      <ul id="transactions" class="tx-list" aria-live="polite"></ul>
+    </div>
+
+    <!-- Shortcuts Section -->
+    <div class="card shortcuts-card">
+      <h3>Quick Services</h3>
+      <div class="shortcuts-grid">
+        <button id="airtimeBtn" class="shortcut-btn">
+          <span class="shortcut-icon">📱</span>
+          <span>Buy Airtime</span>
+        </button>
+        <button id="dataBtn" class="shortcut-btn">
+          <span class="shortcut-icon">📡</span>
+          <span>Buy Data</span>
+        </button>
+        <button id="cableBtn" class="shortcut-btn">
+          <span class="shortcut-icon">📺</span>
+          <span>Cable Subscription</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Airtime Modal -->
+    <div id="airtimeModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Buy Airtime</h2>
+          <button id="closeAirtime" class="btn-close">✕</button>
+        </div>
+        <form id="airtimeForm" class="form">
+          <label for="airtimeNetwork">Mobile Network</label>
+          <select id="airtimeNetwork" name="network" required>
+            <option value="">Select network</option>
+            <option value="mtn">MTN</option>
+            <option value="airtel">Airtel</option>
+            <option value="glo">Glo</option>
+          </select>
+
+          <label for="airtimePhone">Phone Number</label>
+          <input id="airtimePhone" name="phone" type="tel" placeholder="Enter phone number" required />
+
+          <label for="airtimeAmount">Amount</label>
+          <select id="airtimeAmount" name="amount" required>
+            <option value="">Select amount</option>
+            <option value="500">₦500</option>
+            <option value="1000">₦1,000</option>
+            <option value="2000">₦2,000</option>
+            <option value="5000">₦5,000</option>
+          </select>
+
+          <button type="submit" class="btn btn-primary">Buy Airtime</button>
+          <p id="airtimeMsg" class="muted" hidden></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Data Modal -->
+    <div id="dataModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Buy Data</h2>
+          <button id="closeData" class="btn-close">✕</button>
+        </div>
+        <form id="dataForm" class="form">
+          <label for="dataNetwork">Mobile Network</label>
+          <select id="dataNetwork" name="network" required>
+            <option value="">Select network</option>
+            <option value="mtn">MTN</option>
+            <option value="airtel">Airtel</option>
+            <option value="glo">Glo</option>
+          </select>
+
+          <label for="dataPhone">Phone Number</label>
+          <input id="dataPhone" name="phone" type="tel" placeholder="Enter phone number" required />
+
+          <label for="dataPlan">Data Plan</label>
+          <select id="dataPlan" name="plan" required>
+            <option value="">Select plan</option>
+            <option value="500mb-500">500MB - ₦500</option>
+            <option value="1gb-1000">1GB - ₦1,000</option>
+            <option value="2gb-1500">2GB - ₦1,500</option>
+            <option value="5gb-3000">5GB - ₦3,000</option>
+          </select>
+
+          <button type="submit" class="btn btn-primary">Buy Data</button>
+          <p id="dataMsg" class="muted" hidden></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Cable Modal -->
+    <div id="cableModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Cable Subscription</h2>
+          <button id="closeCable" class="btn-close">✕</button>
+        </div>
+        <form id="cableForm" class="form">
+          <label for="cableProvider">Provider</label>
+          <select id="cableProvider" name="provider" required>
+            <option value="">Select provider</option>
+            <option value="dstv">DSTV</option>
+            <option value="gotv">GOTV</option>
+            <option value="startimes">StarTimes</option>
+          </select>
+
+          <label for="cablePlan">Plan</label>
+          <select id="cablePlan" name="plan" required>
+            <option value="">Select plan</option>
+          </select>
+
+          <label for="cableSmartcard">Smartcard Number</label>
+          <input id="cableSmartcard" name="smartcard" placeholder="Enter smartcard number" required />
+
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+          <p id="cableMsg" class="muted" hidden></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container muted">SimpleBank — demo UI • No real money</div>
+  </footer>
+
+  <script src="app-dashboard.js" defer></script>
+</body>
+</html>
